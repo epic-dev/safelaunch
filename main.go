@@ -82,6 +82,8 @@ func main() {
 			AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 			AllowHeaders: []string{"Origin", "Content-Type"},
 		}))
+	} else {
+		gin.SetMode(gin.ReleaseMode)
 	}
 
 	router.Use(middlewares.PerformanceLogger())
@@ -90,6 +92,7 @@ func main() {
 	{
 		api.GET("/healthz", healthCheck)
 		api.GET("/feature-flags", handlers.GetAllFeatureFlags(db))
+		api.GET("/bulk/feature-flags", handlers.GetAllFeatureFlagsForSDK(db))
 		api.GET("/feature-flags/:key", handlers.GetFeatureFlagByKey(db))
 		api.POST("/feature-flags", handlers.CreateFeatureFlag(db))
 		api.PATCH("/feature-flags/:id", handlers.UpdateFeatureFlag(db))

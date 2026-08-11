@@ -19,6 +19,9 @@ SELECT COUNT(*) FROM feature_flags`
 const GET_ALL_FEATURE_FLAGS = `
 SELECT id, key, description, enabled, created_at FROM feature_flags ORDER BY id LIMIT ? OFFSET ?`
 
+const GET_ALL_FEATURE_FLAGS_SDK = `
+SELECT id, key, description, enabled, created_at FROM feature_flags ORDER BY id`
+
 const GET_FEATURE_FLAG_BY_KEY = `
 SELECT id, key, description, enabled, created_at FROM feature_flags WHERE key = ?`
 

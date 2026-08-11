@@ -7,6 +7,7 @@ import (
 
 	queries "safelaunch/db_queries"
 	"safelaunch/types"
+	"safelaunch/utils"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
@@ -79,10 +80,10 @@ func GetAllFeatureFlags(db *sql.DB) gin.HandlerFunc {
 		paginatedResult, err := readFeatureFlagsFromDB(c, db)
 		if err != nil {
 			slog.Error("Failed to retrieve feature flags", "error", err)
-			c.IndentedJSON(http.StatusInternalServerError, gin.H{"message": "Failed to retrieve feature flags", "error": err.Error()})
+			utils.JSON(c, http.StatusInternalServerError, gin.H{"message": "Failed to retrieve feature flags", "error": err.Error()})
 			return
 		}
 
-		c.IndentedJSON(http.StatusOK, paginatedResult)
+		utils.JSON(c, http.StatusOK, paginatedResult)
 	}
 }

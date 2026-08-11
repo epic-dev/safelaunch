@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"net/http"
 	queries "safelaunch/db_queries"
+	"safelaunch/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,9 +15,9 @@ func DeleteFeatureFlag(db *sql.DB) gin.HandlerFunc {
 
 		_, err := db.ExecContext(c.Request.Context(), queries.DELETE_FEATURE_FLAG, id)
 		if err != nil {
-			c.IndentedJSON(http.StatusInternalServerError, gin.H{"message": "Failed to delete feature flag"})
+			utils.JSON(c, http.StatusInternalServerError, gin.H{"message": "Failed to delete feature flag"})
 			return
 		}
-		c.IndentedJSON(http.StatusNoContent, gin.H{"message": "Feature flag deleted successfully"})
+		utils.JSON(c, http.StatusNoContent, gin.H{"message": "Feature flag deleted successfully"})
 	}
 }
