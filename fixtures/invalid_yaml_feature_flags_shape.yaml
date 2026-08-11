@@ -1,0 +1,5 @@
+# Top-level is a mapping, not a sequence of flags — will fail to unmarshal into []FeatureFlag
+key: feature_yaml_wrong_shape
+description: "This document is a single mapping, the API expects a YAML sequence"
+enabled: true
+enabled: false

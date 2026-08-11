@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: safelaunch
+    ports:
+      - "8081:8080"
+    environment:
+      - ENV=production
+      - PORT=8080
+      - DB_PATH=/app/db/feature_flags.db
+    volumes:
+      # Maps host folder './db' to container folder '/app/db'
+      - ./db:/app/db
+    restart: unless-stopped

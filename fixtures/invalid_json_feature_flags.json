@@ -1,0 +1,12 @@
+[
+    {
+        "key": "feature_json_1",
+        "description": "Feature flag for JSON test 1",
+        "enabled": true,
+    },
+    {
+        key: "feature_json_2",
+        "description": "Unquoted key and missing comma above should fail parsing"
+        "enabled": false
+    }
+]

@@ -1,0 +1,6 @@
+- key: feature_yaml_invalid_1
+	description: "Tab character used for indentation, illegal in YAML"
+  enabled: true
+- key: feature_yaml_invalid_2
+    description: "Indentation level does not match the mapping above it"
+  enabled: false

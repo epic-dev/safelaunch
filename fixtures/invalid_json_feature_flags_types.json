@@ -1,0 +1,12 @@
+[
+    {
+        "key": "feature_json_type_confusion_1",
+        "description": "enabled is a string instead of a boolean",
+        "enabled": "true"
+    },
+    {
+        "key": 12345,
+        "description": "key is a number instead of a string",
+        "enabled": true
+    }
+]

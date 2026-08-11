@@ -1,0 +1,7 @@
+[
+    {
+        "key": "feature_json_3",
+        "description": "Feature flag for JSON test 1",
+        "enabled": true
+    }
+]

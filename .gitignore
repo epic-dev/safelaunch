@@ -1,0 +1,25 @@
+.env*
+
+# ignore blog post drafts
+articles/
+
+#ignore build artifacts and binary files
+bin/
+db/
+safelaunch
+
+docs/
+decisions/
+discovery/
+
+PRD.md
+PROGRESS.md
+CLAUDE.md
+roadmap-index.md
+roadmap-history.md
+roadmap-blog-ideas.md
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store

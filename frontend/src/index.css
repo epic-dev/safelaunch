@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+/* Set Dark Mode strategy to 'class' */
+/* @custom-variant dark (&:where(.dark, .dark *)); */
+
+@theme {
+  /* -------------------------------------------------------------------------- */
+  /* Colors                                                                    */
+  /* -------------------------------------------------------------------------- */
+  --color-surface-container: #eceef0;
+  --color-on-primary-fixed-variant: #003cad;
+  --color-on-secondary: #ffffff;
+  --color-on-primary: #ffffff;
+  --color-tertiary-fixed-dim: #bec6e0;
+  --color-on-surface: #191c1e;
+  --color-outline: #737687;
+  --color-surface-container-highest: #e0e3e5;
+  --color-surface-tint: #0050e1;
+  --color-on-primary-container: #f9f7ff;
+  --color-surface-container-low: #f2f4f6;
+  --color-inverse-primary: #b5c4ff;
+  --color-primary-fixed: #dce1ff;
+  --color-primary-container: #2665fd;
+  --color-on-error: #ffffff;
+  --color-surface-container-high: #e6e8ea;
+  --color-on-tertiary-container: #f9f8ff;
+  --color-on-secondary-fixed: #0b1c30;
+  --color-inverse-on-surface: #eff1f3;
+  --color-surface-container-lowest: #ffffff;
+  --color-tertiary-container: #6a7289;
+  --color-surface: #f7f9fb;
+  --color-primary-fixed-dim: #b5c4ff;
+  --color-on-tertiary: #ffffff;
+  --color-outline-variant: #c3c5d8;
+  --color-on-surface-variant: #434655;
+  --color-secondary-container: #d0e1fb;
+  --color-on-secondary-fixed-variant: #38485d;
+  --color-error-container: #ffdad6;
+  --color-secondary-fixed: #d3e4fe;
+  --color-secondary: #505f76;
+  --color-surface-variant: #e0e3e5;
+  --color-tertiary-fixed: #dae2fd;
+  --color-on-tertiary-fixed-variant: #3f465c;
+  --color-surface-bright: #f7f9fb;
+  --color-primary: #004cd7;
+  --color-background: #f7f9fb;
+  --color-on-error-container: #93000a;
+  --color-secondary-fixed-dim: #b7c8e1;
+  --color-error: #ba1a1a;
+  --color-on-secondary-container: #54647a;
+  --color-surface-dim: #d8dadc;
+  --color-inverse-surface: #2d3133;
+  --color-on-tertiary-fixed: #131b2e;
+  --color-tertiary: #525970;
+  --color-on-background: #191c1e;
+  --color-on-primary-fixed: #00164d;
+  --color-panel-bg: #ffffff;
+  --color-border-subtle: #e0e3e5;
+
+  /* -------------------------------------------------------------------------- */
+  /* Border Radius                                                              */
+  /* -------------------------------------------------------------------------- */
+  --radius: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  /* -------------------------------------------------------------------------- */
+  /* Spacing                                                                    */
+  /* -------------------------------------------------------------------------- */
+  --spacing-margin-desktop: 40px;
+  --spacing-container-max: 1280px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+  --spacing-unit: 8px;
+
+  /* -------------------------------------------------------------------------- */
+  /* Fonts                                                                      */
+  /* -------------------------------------------------------------------------- */
+  --font-body-lg: Inter, sans-serif;
+  --font-headline-lg-mobile: "Hanken Grotesk", sans-serif;
+  --font-headline-lg: "Hanken Grotesk", sans-serif;
+  --font-body-sm: Inter, sans-serif;
+  --font-headline-md: "Hanken Grotesk", sans-serif;
+  --font-label-caps: "JetBrains Mono", monospace;
+  --font-display: "Hanken Grotesk", sans-serif;
+  --font-body-md: Inter, sans-serif;
+  --font-mono-label: "JetBrains Mono", monospace;
+
+  /* -------------------------------------------------------------------------- */
+  /* Typography Utilities                                                       */
+  /* -------------------------------------------------------------------------- */
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+
+  --text-headline-lg-mobile: 24px;
+  --text-headline-lg-mobile--line-height: 1.2;
+  --text-headline-lg-mobile--font-weight: 600;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 1.2;
+  --text-headline-lg--letter-spacing: -0.01em;
+  --text-headline-lg--font-weight: 600;
+
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.5;
+  --text-body-sm--font-weight: 400;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 1.3;
+  --text-headline-md--font-weight: 600;
+
+  --text-label-caps: 12px;
+  --text-label-caps--line-height: 1.0;
+  --text-label-caps--letter-spacing: 0.05em;
+  --text-label-caps--font-weight: 500;
+
+  --text-display: 48px;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--font-weight: 400;
+
+  --text-mono-label: 13px;
+  --text-mono-label--line-height: 18px;
+  --text-mono-label--letter-spacing: -0.01em;
+  --text-mono-label--font-weight: 500;
+}
+
+/* Google Stitch */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+@keyframes loading-dot {
+  0%, 60%, 100% { opacity: 0; }
+  30% { opacity: 1; }
+}
+
+/* Custom Scrollbar for sleek light mode */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f9fb;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0e3e5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d8dadc;
+}
+
+/* Editable Input Styles */
+.editable-input {
+  background: transparent;
+  border: 1px solid transparent;
+  outline: none;
+  transition: all 0.2s ease;
+  width: 100%;
+  padding: 2px 4px;
+  margin-left: -4px;
+}
+
+.editable-input:hover {
+  border-bottom: 1px dashed #737687;
+}
+
+.editable-input:focus {
+  border: 1px solid #2665fd;
+  background: #ffffff;
+  border-radius: 0.125rem;
+}
