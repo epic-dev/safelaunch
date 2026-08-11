@@ -1,5 +1,5 @@
 <div align="center">
-<img src="logo_gh.png" alt="SafeLaunch logo" width="240" />
+<img src="logo_gh.png" alt="SafeLaunch logo" height="120" />
 
 <br/>
 
