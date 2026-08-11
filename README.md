@@ -1,4 +1,11 @@
+<div align="center">
+<img src="logo_gh.png" alt="SafeLaunch logo" width="240" />
+
+<br/>
+
 # SafeLaunch
+<!-- build statistics --><!-- test coverage --><!-- installs -->
+</div>
 
 **An open-source, self-contained, single-binary feature flag server for micro-SaaS and indie developers.**
 
