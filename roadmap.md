@@ -109,12 +109,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] PRD is written and no section says "TBD"
 - [ ] Product hypothesis section at top of this file has been updated
 
-**📝 Blog post angles:**
-- "I evaluated 8 feature-flag tools before building my own. Here's the market map."
-- "Server-side vs client-side flag evaluation — when each fits and why it matters for your bundle size / consistency guarantees."
-
-> ← **GRADE Phase 0:**
-
 ---
 
 ### Phase 1 — Foundation: Go server + SQLite + Python CLI (~30-40 hrs) — in progress
@@ -171,13 +165,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] Go tests passing (`go test ./...`) + Python CLI tests passing (`pytest`)
 - [ ] Notes file (`safelaunch/notes/phase-1.md`) — 200 words on what shipped + surprises + what's still open (especially: what took longer than expected during Go ramp-up, and why JSON storage got skipped)
 
-**📝 Blog post angles:**
-- **"Learning Go by building a feature-flag server: what surprised a TypeScript native"** — running series opener; Phase 1's honest ramp-up story
-- "Why I skipped the JSON-file stage and went straight to embedded SQLite"
-- "Starting a SaaS-shaped project as a Go CRUD API + embedded dashboard — why less is more in Phase 1"
-
-> ← **GRADE Phase 1:**
-
 ---
 
 ### Phase 2 — Evaluation engine: targeting rules + variants (~15-25 hrs)
@@ -208,12 +195,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] 10,000 fake users across a 50/50 flag → split within 48/52 range
 - [ ] Attribute rule "country == 'CH' → treatment" works
 - [ ] `reason` field explains every evaluation
-
-**📝 Blog post angles:**
-- "Deterministic bucketing 101: why `Math.random()` ruins A/B tests, and what to use instead."
-- "Rule engine: build vs buy for a feature-flag tool — the tradeoff I made and why."
-
-> ← **GRADE Phase 2:**
 
 ---
 
@@ -247,13 +228,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] Cache hit rate > 95% in steady-state load
 - [ ] p95 evaluate latency < 5 ms under 1k RPS locally (in-process cache should be near-zero overhead)
 - [ ] `cp safelaunch.db backup.db` while server is running produces a consistent snapshot (WAL semantics)
-
-**📝 Blog post angles:**
-- **"Why I picked SQLite over Postgres for a feature-flag server"** — the reasoning, the tradeoffs, when you shouldn't
-- "In-process caching in Go: `sync.Map` vs Ristretto for a read-heavy workload"
-- "SQLite WAL mode + `//go:embed` migrations: how to ship a database in a single Go binary"
-
-> ← **GRADE Phase 3:**
 
 ---
 
@@ -291,14 +265,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] Dashboard screenshot with all 4 panels populated + annotations showing
 - [ ] Simulate a Redis outage → error rate metric spikes, alert would fire (write the alert but don't route it)
 - [ ] Notes file distinguishes observability of SafeLaunch itself from observability SafeLaunch will provide TO customers (this distinction is your product's core value)
-
-**📝 Blog post angles:**
-- **"Closing the observability gap that cost me a senior interview."** (Personal, direct, valuable to other engineers with the same gap. Interview signal.)
-- "The three pillars of observability, applied to a real SaaS from scratch: logs → metrics → traces, what I added and why."
-- "Release annotations: making your feature flag changes visible in your metrics dashboard."
-- "Averages hide tail latency: why p99 is what actually matters."
-
-> ← **GRADE Phase 4:**
 
 ---
 
@@ -345,14 +311,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] Event schema is versioned and additive-safe (a `conversion` event type can be added post-MVP without changing any existing consumer code)
 - [ ] Buffer-overflow behavior documented: what happens when analytics throughput exceeds capacity (shed with warning, don't block ingestion)
 
-**📝 Blog post angles:**
-- **"An event pipeline in ~200 lines of Go: buffered channels + batched SQLite inserts + a rollup goroutine"** — technical deep-dive; concrete architecture story
-- "Backpressure without a queue: the three strategies when your buffer fills"
-- "Designing an event schema to survive its future: how to add event types without breaking existing consumers"
-- "Why I dropped BullMQ + ClickHouse in favor of goroutines + SQLite" — the ADR 009 rationale as a post
-
-> ← **GRADE Phase 5:**
-
 ---
 
 ### Phase 6 — SDK v1 (~15-25 hrs) — partially done (SDK built, not published)
@@ -392,13 +350,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] Demo app in `apps/demo/` renders differently based on flag value
 - [ ] Kill the API → demo app keeps working with last-known values, no crashes
 
-**📝 Blog post angles:**
-- "Publishing my first npm SDK: the API I settled on and the failure modes I designed for."
-- "Bundle-size discipline for public SDKs: how I kept it under 10 KB gzipped."
-- "SDK failure modes: what your SDK should do when the backend is down."
-
-> ← **GRADE Phase 6:**
-
 ---
 
 ### Phase 7 — Web dashboard, embedded (~25-35 hrs) — done
@@ -427,13 +378,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] Toggle a flag → SDK-connected demo reflects change within 60s (poll interval) — no SDK-connected demo app exists yet, revisit once Phase 6's demo app is built
 - [ ] Kill switch works end-to-end, event annotation shows in observability dashboard — no kill-switch UX or observability yet (Phase 4/5)
 - [ ] Mobile view acceptable (bootstrap-quality is fine) — not verified
-
-**📝 Blog post angles:**
-- **"Embedding a React + Vite dashboard in a Go binary with `//go:embed`"** — the build pipeline, the tradeoffs, the surprising bits. Strong technical post.
-- "Optimistic UI for flag toggles: making the dashboard feel instant" (once built)
-- "One 'big red button' is worth ten config forms: the UX of a kill switch" (once built)
-
-> ← **GRADE Phase 7:**
 
 ---
 
@@ -466,13 +410,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] Load test documented; system holds up or specific bottleneck named + planned
 - [ ] Backup restore verified end-to-end
 
-**📝 Blog post angles:**
-- "I security-audited my own OSS project. Here's my 10-layer checklist and the top 3 gaps I found."
-- "Load-testing a feature-flag service: what breaks first at 500 RPS."
-- "Backup restore drills: the practice that actually saves you when something goes wrong."
-
-> ← **GRADE Phase 8:**
-
 ---
 
 ### Phase 9 — Launch prep + multi-channel release (~20-30 hrs)
@@ -504,15 +441,6 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [ ] One non-you human has run SafeLaunch (either binary or container) and evaluated a flag through the TS SDK
 - [ ] Friction log filed; top-5 fixes shipped
 - [ ] Launch post published and cross-linked from GitHub README
-
-**📝 Blog post angles (Phase 9 is the launch post + retrospective content):**
-- **The launch post** (required deliverable). "Introducing SafeLaunch: an open-source feature flag server for indie devs and micro-SaaS."
-- **Retrospective** — "Building SafeLaunch: N hours, everything I got wrong, what I'd do again."
-- **The distribution post** — "Shipping a Go binary + Docker image + install script from one `goreleaser` config: the multi-channel release pipeline for a solo OSS project."
-- **The strategy post** — "Why I chose fully OSS over open-core, and how I'd revisit that if I commercialized." Turn ADR 008 into public content.
-- **The framework post** — "Feature flags for indie devs: what I learned building the tool I wished existed."
-
-> ← **GRADE Phase 9 (public release gate):**
 
 ---
 
