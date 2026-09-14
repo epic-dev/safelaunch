@@ -2,7 +2,7 @@
 
 Thanks for taking a look. A few things worth knowing up front:
 
-- SafeLaunch is early-stage and currently driven by a single maintainer, following a phased roadmap ([`roadmap.md`](./roadmap.md)). It's not yet tagged or packaged for production use.
+- SafeLaunch is early-stage and currently driven by a single maintainer, following a phased roadmap. It's not yet tagged or packaged for production use.
 - Scope is intentionally locked to a fully open-source, single-tenant MVP. Multi-tenancy, billing, and user accounts are explicitly out of scope for now.
 - Given that, **please open an issue before starting on anything beyond a small bug fix.** It saves you from building something that doesn't fit the current phase or the locked scope.
 

@@ -25,7 +25,7 @@ SafeLaunch is a young, actively-developed project — **not yet tagged, packaged
 - A small React + Vite dashboard, built and embedded into the Go binary via `//go:embed`
 - A `Dockerfile` + `docker-compose.yaml` for running the server in a container
 
-Not yet built: authentication, targeting rules / percentage rollouts / variants, the Python CLI, SDKs, observability, and the event pipeline. See [`roadmap.md`](./roadmap.md) for the full phased plan and current phase status.
+Not yet built: targeting rules / percentage rollouts / variants, the Python CLI, SDKs, observability, and the event pipeline.
 
 ## Why this project exists
 
@@ -162,7 +162,7 @@ Copy the resulting file to the server, `chmod +x`, and run it.
 
 ## Roadmap
 
-- [`roadmap.md`](./roadmap.md) — the 10-phase plan this project follows, gated on outcomes not deadlines
+SafeLaunch follows a 10-phase plan, gated on outcomes rather than deadlines. Phases 1 and 7 (server foundation and embedded dashboard) are largely done; targeting rules, the Python CLI, SDK publication, observability, and the event pipeline are still ahead.
 
 
 ## Contributing
