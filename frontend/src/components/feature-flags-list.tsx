@@ -1,6 +1,7 @@
 import { Suspense, use, useState, useTransition } from "react";
 import type { FeatureFlag } from "../types/feature-flag";
 import { GetList } from "../consts/api-endpoints";
+import { apiFetch } from "../utils/api-fetch";
 import { FeatureFlagItem } from "./feature-flag-item";
 import { NoFeatureFlags } from "./no-feature-flags";
 import { AsyncPagination } from "./async-pagination";
@@ -10,7 +11,7 @@ import { DeleteFlagModal } from "./delete-flag-modal";
 import { LoadingDots } from "./loading-dots";
 
 async function fetchPageData(currentPage: number, itemsPerPage: number): Promise<FeatureFlagsResponse> {
-  const response = await fetch(`${GetList}?limit=${itemsPerPage}&offset=${(currentPage - 1) * itemsPerPage}`);
+  const response = await apiFetch(`${GetList}?limit=${itemsPerPage}&offset=${(currentPage - 1) * itemsPerPage}`);
   if (!response.ok) throw new Error('Failed to fetch feature flags :(')
   return response.json()
 }

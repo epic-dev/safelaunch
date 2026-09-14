@@ -6,3 +6,4 @@ export const CreateItem = `${baseUrl}/feature-flags`;
 export const UpdateItem = `${baseUrl}/feature-flags`;
 export const DeleteItem = `${baseUrl}/feature-flags`;
 export const ImportList = `${baseUrl}/import`;
+export const Session = `${baseUrl}/auth/session`;

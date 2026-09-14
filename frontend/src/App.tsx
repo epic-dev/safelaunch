@@ -1,6 +1,5 @@
 import './App.css'
-import { CreateFlagModal } from './components/create-flag-modal';
-import { DeleteFlagModal } from './components/delete-flag-modal';
+import { ApiKeyGate } from './components/api-key-gate';
 import { FeatureFlagsList } from './components/feature-flags-list';
 import { PageHeader } from './components/page-header';
 import { Sidebar } from './components/sidebar';
@@ -8,7 +7,7 @@ import { Sidebar } from './components/sidebar';
 
 function App() {
   return (
-    <>
+    <ApiKeyGate>
       <Sidebar />
       <div className="flex-1 flex flex-col md:ml-[240px] h-screen bg-background relative overflow-hidden">
         {/* <TopNavBar /> */}
@@ -21,7 +20,7 @@ function App() {
         {/* <div className="ticks"></div>
         <section id="spacer"></section> */}
       </div>
-    </>
+    </ApiKeyGate>
   )
 }
 

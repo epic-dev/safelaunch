@@ -75,7 +75,7 @@ describe('useAsyncAction', () => {
   })
 
   it('passes arguments through to the action', async () => {
-    const action = vi.fn(async () => {})
+    const action = vi.fn(async (_count: number, _label: string) => {})
     const { result } = renderHook(() => useAsyncAction(action))
 
     await act(async () => {
@@ -86,7 +86,7 @@ describe('useAsyncAction', () => {
   })
 
   it('clears a previous error at the start of a new run', async () => {
-    const action = vi.fn(async () => {
+    const action = vi.fn(async (): Promise<void> => {
       throw new Error('first failure')
     })
     const { result } = renderHook(() => useAsyncAction(action))

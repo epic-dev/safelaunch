@@ -4,6 +4,7 @@ import { ToggleButton } from "./toggle-button";
 import { UpdateItem } from "../consts/api-endpoints";
 import { getRelativeTime } from "../utils/getRelativeTime";
 import { useAsyncAction } from "../hooks/useAsyncAction";
+import { apiFetch } from "../utils/api-fetch";
 
 interface FeatureFlagItemProps {
     flag: FeatureFlag;
@@ -28,7 +29,7 @@ export const FeatureFlagItem = ({ flag, onDelete }: FeatureFlagItemProps) => {
 
     const { run: submitUpdate, pending } = useAsyncAction(async (name: string, value: string | boolean) => {
         try {
-            const response = await fetch(`${UpdateItem}/${flag.id}`, {
+            const response = await apiFetch(`${UpdateItem}/${flag.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

@@ -152,7 +152,7 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
    - Cover the CRUD happy path through the UI: create a flag → see it in the list → toggle enabled → edit description → delete it
    - Run against a throwaway SQLite file so tests don't collide with dev data
    - Runnable locally via `npx playwright test` for now; wire into CI once CI exists (Phase 9 territory)
-7. **Go tests** — 🔲 not started: table-driven unit tests on handlers + queries.
+7. **Go tests** — ✅ done: unit tests across `handlers/`, `middlewares/`, and `auth/`. `go test ./...` passes.
 8. **README** — ✅ done (what SafeLaunch is, how to run locally, build a single binary, current status).
 9. **CONTRIBUTING.md** — ✅ done.
 
@@ -160,9 +160,9 @@ Go for the server, Python for tooling, TypeScript/Python/Ruby for SDKs.
 - [x] `go run .` (or `docker compose up`) starts the server and serves the embedded dashboard
 - [x] Full CRUD happy path works through the API: create → list → get → update → delete
 - [ ] Full CRUD happy path also works through the CLI: create → list → get → update → delete
-- [ ] API key auth on all routes except `/api/healthz`
+- [x] API key auth on all routes except `/api/v1/healthz` and `/api/v1/auth/session` — shared `SAFELAUNCH_API_KEY` from env, presented as `Authorization: Bearer` (SDK/CLI) or as an HttpOnly session cookie the dashboard exchanges the key for. Server refuses to boot without a key unless `ENV=development`. See ADR 011.
 - [ ] Playwright e2e suite covers the CRUD happy path through the embedded dashboard
-- [ ] Go tests passing (`go test ./...`) + Python CLI tests passing (`pytest`)
+- [ ] Go tests passing (`go test ./...`) ✅ + Python CLI tests passing (`pytest`) 🔲 — Go side covers handlers, middleware, and the `auth` package; the pytest half is blocked on the CLI existing
 - [ ] Notes file (`safelaunch/notes/phase-1.md`) — 200 words on what shipped + surprises + what's still open (especially: what took longer than expected during Go ramp-up, and why JSON storage got skipped)
 
 ---

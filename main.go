@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"safelaunch/auth"
 	queries "safelaunch/db_queries"
 	"safelaunch/middlewares"
 	"safelaunch/types"
@@ -59,6 +60,31 @@ func healthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "healthy"})
 }
 
+// resolveAPIKey reads the key every caller must present, and decides what to do when there
+// isn't one.
+//
+// Outside development a missing key is fatal: a feature flag server reachable without a
+// credential lets anyone toggle production behaviour, so refusing to boot is the only safe
+// default. In development it degrades to an open server with a loud warning, so `go run .`
+// and the test suites stay frictionless.
+func resolveAPIKey(isDevelopment bool) string {
+	apiKey := os.Getenv("SAFELAUNCH_API_KEY")
+	if apiKey != "" {
+		return apiKey
+	}
+
+	if !isDevelopment {
+		slog.Error("SAFELAUNCH_API_KEY is not set - refusing to start an unauthenticated server. " +
+			"Set SAFELAUNCH_API_KEY to a long random string, or set ENV=development to run without auth locally.")
+		os.Exit(1)
+	}
+
+	slog.Warn("SAFELAUNCH_API_KEY is not set - API authentication is DISABLED. " +
+		"This is allowed because ENV=development. Never run this way anywhere reachable.")
+
+	return ""
+}
+
 //go:embed frontend/dist
 var frontend embed.FS
 
@@ -71,16 +97,23 @@ func main() {
 
 	slog.Info("Environment initialized", "env", os.Getenv("ENV"))
 
+	isDevelopment := os.Getenv("ENV") == "development"
+	apiKey := resolveAPIKey(isDevelopment)
+	sessions := auth.NewStore()
+
 	db := startDatabase()
 	defer db.Close()
 
 	router := gin.Default()
 
-	if os.Getenv("ENV") == "development" {
+	if isDevelopment {
 		router.Use(cors.New(cors.Config{
 			AllowOrigins: []string{"http://localhost:5173"},
 			AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
-			AllowHeaders: []string{"Origin", "Content-Type"},
+			AllowHeaders: []string{"Origin", "Content-Type", "Authorization"},
+			// Needed for the session cookie on any direct cross-origin call. The Vite dev
+			// server proxies /api, so the dashboard itself stays same-origin either way.
+			AllowCredentials: true,
 		}))
 	} else {
 		gin.SetMode(gin.ReleaseMode)
@@ -88,16 +121,29 @@ func main() {
 
 	router.Use(middlewares.PerformanceLogger())
 
+	// Secure cookies are dropped by browsers over plain HTTP, which is how the server is
+	// reached locally. Everywhere else, the cookie must not travel unencrypted.
+	secureCookies := !isDevelopment
+
 	api := router.Group("/api/v1")
 	{
+		// Open by necessity: healthz is what a load balancer polls, and the session routes
+		// are how a caller obtains a credential in the first place.
 		api.GET("/healthz", healthCheck)
-		api.GET("/feature-flags", handlers.GetAllFeatureFlags(db))
-		api.GET("/bulk/feature-flags", handlers.GetAllFeatureFlagsForSDK(db))
-		api.GET("/feature-flags/:key", handlers.GetFeatureFlagByKey(db))
-		api.POST("/feature-flags", handlers.CreateFeatureFlag(db))
-		api.PATCH("/feature-flags/:id", handlers.UpdateFeatureFlag(db))
-		api.DELETE("/feature-flags/:id", handlers.DeleteFeatureFlag(db))
-		api.POST("/import", handlers.ImportFeatureFlags(db))
+		api.GET("/auth/session", handlers.SessionStatus(apiKey, sessions))
+		api.POST("/auth/session", handlers.CreateSession(apiKey, sessions, secureCookies))
+		api.DELETE("/auth/session", handlers.DeleteSession(sessions, secureCookies))
+
+		protected := api.Group("", middlewares.RequireAuth(apiKey, sessions))
+		{
+			protected.GET("/feature-flags", handlers.GetAllFeatureFlags(db))
+			protected.GET("/bulk/feature-flags", handlers.GetAllFeatureFlagsForSDK(db))
+			protected.GET("/feature-flags/:key", handlers.GetFeatureFlagByKey(db))
+			protected.POST("/feature-flags", handlers.CreateFeatureFlag(db))
+			protected.PATCH("/feature-flags/:id", handlers.UpdateFeatureFlag(db))
+			protected.DELETE("/feature-flags/:id", handlers.DeleteFeatureFlag(db))
+			protected.POST("/import", handlers.ImportFeatureFlags(db))
+		}
 	}
 
 	distFs, err := fs.Sub(frontend, "frontend/dist")

@@ -1,6 +1,7 @@
 import type React from "react";
 import { DeleteItem } from "../consts/api-endpoints";
 import { useAsyncAction } from "../hooks/useAsyncAction";
+import { apiFetch } from "../utils/api-fetch";
 
 interface DeleteFlagModalProps {
     flagId: number | null;
@@ -10,7 +11,7 @@ interface DeleteFlagModalProps {
 export const DeleteFlagModal = ({ flagId, onDeleted }: DeleteFlagModalProps) => {
     const { run: deleteFlag, pending, error } = useAsyncAction(async (dialog: HTMLDialogElement | null) => {
         if (!flagId) return
-        const response = await fetch(`${DeleteItem}/${flagId}`, {
+        const response = await apiFetch(`${DeleteItem}/${flagId}`, {
             method: "DELETE"
         });
 

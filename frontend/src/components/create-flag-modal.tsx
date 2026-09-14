@@ -4,6 +4,7 @@ import { FileDropArea } from "./file-drop-area";
 import type { FeatureFlag } from "../types/feature-flag";
 import { CreateItem, ImportList } from "../consts/api-endpoints";
 import { useAsyncAction } from "../hooks/useAsyncAction";
+import { apiFetch } from "../utils/api-fetch";
 
 type FeatureFlagCreateInput = Omit<FeatureFlag, 'id' | 'created_at'>
 
@@ -26,7 +27,7 @@ export const CreateFlagModal = ({ onCreated }: CreateFlagModalProps) => {
             const formData = new FormData();
             formData.append("file", fileSelected);
 
-            const response = await fetch(`${ImportList}`, {
+            const response = await apiFetch(`${ImportList}`, {
                 method: "POST",
                 body: formData,
             })
@@ -34,7 +35,7 @@ export const CreateFlagModal = ({ onCreated }: CreateFlagModalProps) => {
             if (!response.ok) throw new Error("Failed to upload file");
 
         } else {
-            const response = await fetch(`${CreateItem}`, {
+            const response = await apiFetch(`${CreateItem}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(featureFlag),
